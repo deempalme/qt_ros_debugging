@@ -1,5 +1,5 @@
 
-# Setup of Qt Creator for ROS
+# Setup of Qt Creator for ROS (and CarMaker)
 There is already an existing guide to make **Qt** and **ROS** work together but, using the **"Import Existing Project"** tool of QtCreator **may not include** all your project's libraries, and therefore the **advanced editing capabilities** of **Qt** will not be available if these files are not properly linked.
 
 This guide will fix those problems by directly using **CMakeLists.txt**, this also has other advantage; you could use your project like a normal Qt project (no ROS).
