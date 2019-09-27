@@ -1,16 +1,17 @@
-project(three_f_se_carmaker)
+project(my_carmaker_project)
 cmake_minimum_required(VERSION 3.1)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#sources
+# Example for source files :::::::::::::::::::::::::::::::::::::::::::::
 set(SOURCES
-  src/CM_Main.cpp
-  src/CM_Vehicle.cpp
-  src/User.cpp
-  src/app_tmp.c
+  src/CM_Main.cpp     # Required if you are using CarMaker
+  src/CM_Vehicle.cpp  # Required if you are using CarMaker
+  src/User.cpp        # Required if you are using CarMaker
+  src/app_tmp.c       # Required if you are using CarMaker
 )
 
+# Example for ROS messages :::::::::::::::::::::::::::::::::::::::::::::
 # Adding the next files (which don't have standard extensions: .cpp, .h, .c, etc.)
 # would not affect the building, this is only to display the files in the
 # "Project Browser" of qtcreator (left toolbar where all the porject's
@@ -36,6 +37,8 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
     message_generation
   )
 
+  # Example for ROS messages :::::::::::::::::::::::::::::::::::::::::::::
+  # You could remove this if you are not publishing ROS messages
   ## Generate messages in the 'msg' folder
   add_message_files(FILES
      carmaker_ego_car.msg
@@ -56,12 +59,13 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   ## CATKIN_DEPENDS: catkin_packages dependent projects also need
   ## DEPENDS: system dependencies of this project that dependent projects also need
   catkin_package(
-  #  INCLUDE_DIRS carmaker_ros_example/include
-#    LIBRARIES Torero
+  #  INCLUDE_DIRS my_other_project/include
+  #  LIBRARIES ExampleLibraryName
     CATKIN_DEPENDS message_runtime
   #  DEPENDS system_lib
   )
 
+  # Use only if you are using CarMaker
   # Copying necessary files to run connect executable with CarMaker
   file(GLOB_RECURSE sim_input LIST_DIRECTORIES true ${PROJECT_SOURCE_DIR}/simInput/*)
   foreach(CONTENT ${sim_input})
