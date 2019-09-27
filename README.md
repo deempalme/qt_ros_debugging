@@ -71,10 +71,10 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   ## is used, also find other catkin packages
   find_package(catkin REQUIRED COMPONENTS
     genmsg
+    message_generation
     roscpp
     rospy
     std_msgs
-    message_generation
   )
 
   ## Generate messages in the 'msg' folder
@@ -105,15 +105,12 @@ endif(DEFINED CATKIN_DEVEL_PREFIX)
 
 ...
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––#
-#                     if you are using CarMaker                    #
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––#
 # Adding dependencies will not work because the last parameter is not going
 # to be defined and you need at least 3 of them, so, you need to put it
 # inside the "if(DEFINED CATKIN_DEVEL_PREFIX)" conditional.
 if(DEFINED CATKIN_DEVEL_PREFIX)
-  add_dependencies(CarMaker.linux64
-    ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  add_dependencies(${PROJECT_NAME}
+    ${PROJECT_NAME}_generate_messages    # example when generating messages
     ${catkin_EXPORTED_TARGETS}
   )
 endif(DEFINED CATKIN_DEVEL_PREFIX)
@@ -121,7 +118,7 @@ endif(DEFINED CATKIN_DEVEL_PREFIX)
 ...
 
 ```
-You can see a full example of **CMakeLists.txt** inside the files of this repository.
+You can see a full example of [**CMakeLists.txt**](CMakeLists.txt) inside the files of this repository. And another example of [**CMakeLists.txt**](carmaker/CMakeLists.txt) for **CarMaker**.
    
 <br/><a name="section1.4"/>
 
@@ -131,7 +128,7 @@ You can see a full example of **CMakeLists.txt** inside the files of this reposi
    3. The *Configure project* screen will be displayed, click at <kbd>Details</kbd>
    4. It is recomendable to have only one <kbd>x</kbd> option chosen and change the folder path in the **same project folder** located at the **catkin_ws** directory. That folder will contain the simulation output's log files and ensures a correct connection between Qt, CarMaker (if used) and ROS. Do not worry about file overwriting because the executable will be located in the *devel* folder. 
    5. Click in the <kbd>Configure Project</kbd> button.
-   4. If the **"Project Browser"** is not visible press: <kbd>Alt</kbd>+<kbd>0</kbd>
+   6. If the **"Project Browser"** is not visible press: <kbd>Alt</kbd>+<kbd>0</kbd>
    
 <br/><a name="section1.5"/>
 
