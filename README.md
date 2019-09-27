@@ -1,6 +1,6 @@
 
 # Setup of Qt Creator for ROS
-There is already an existing guide to make **Qt** and **ROS** work together but, using the **"Import Existing Project"** tool of QtCreator **may not include** all your project's libraries and the **advanced editing capabilities** of **Qt** will not be available if these files are not properly linked.
+There is already an existing guide to make **Qt** and **ROS** work together but, using the **"Import Existing Project"** tool of QtCreator **may not include** all your project's libraries, and therefore the **advanced editing capabilities** of **Qt** will not be available if these files are not properly linked.
 
 This guide will fix those problems by directly using **CMakeLists.txt**, this also has other advantage; you could use your project like a normal Qt project (no ROS).
 ___
@@ -71,16 +71,16 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   ## is used, also find other catkin packages
   find_package(catkin REQUIRED COMPONENTS
     genmsg
+    message_generation
     roscpp
     rospy
     std_msgs
-    message_generation
   )
 
   ## Generate messages in the 'msg' folder
   add_message_files(FILES
-     carmaker_ego.msg
-     carmaker_act.msg
+     some_message.msg
+     other_message.msg
   )
 
   ## Generate added messages and services with any dependencies listed here
@@ -96,7 +96,7 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   ## CATKIN_DEPENDS: catkin_packages dependent projects also need
   ## DEPENDS: system dependencies of this project that dependent projects also need
   catkin_package(
-  #  INCLUDE_DIRS carmaker_ros_example/include
+  #  INCLUDE_DIRS your_project/include
   #  LIBRARIES state_machine
      CATKIN_DEPENDS message_runtime
   #  DEPENDS system_lib
@@ -105,15 +105,12 @@ endif(DEFINED CATKIN_DEVEL_PREFIX)
 
 ...
 
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––#
-#                     if you are using CarMaker                    #
-#––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––#
 # Adding dependencies will not work because the last parameter is not going
 # to be defined and you need at least 3 of them, so, you need to put it
 # inside the "if(DEFINED CATKIN_DEVEL_PREFIX)" conditional.
 if(DEFINED CATKIN_DEVEL_PREFIX)
-  add_dependencies(CarMaker.linux64
-    ${${PROJECT_NAME}_EXPORTED_TARGETS}
+  add_dependencies(${PROJECT_NAME}
+    ${PROJECT_NAME}_generate_messages    # example when generating messages
     ${catkin_EXPORTED_TARGETS}
   )
 endif(DEFINED CATKIN_DEVEL_PREFIX)
@@ -121,7 +118,7 @@ endif(DEFINED CATKIN_DEVEL_PREFIX)
 ...
 
 ```
-You can see a full example of **CMakeLists.txt** inside the files of this repository.
+You can see a full example of [**CMakeLists.txt**](CMakeLists.txt) inside the files of this repository. And another example of [**CMakeLists.txt**](carmaker/CMakeLists.txt) for **CarMaker**.
    
 <br/><a name="section1.4"/>
 
@@ -131,7 +128,7 @@ You can see a full example of **CMakeLists.txt** inside the files of this reposi
    3. The *Configure project* screen will be displayed, click at <kbd>Details</kbd>
    4. It is recomendable to have only one <kbd>x</kbd> option chosen and change the folder path in the **same project folder** located at the **catkin_ws** directory. That folder will contain the simulation output's log files and ensures a correct connection between Qt, CarMaker (if used) and ROS. Do not worry about file overwriting because the executable will be located in the *devel* folder. 
    5. Click in the <kbd>Configure Project</kbd> button.
-   4. If the **"Project Browser"** is not visible press: <kbd>Alt</kbd>+<kbd>0</kbd>
+   6. If the **"Project Browser"** is not visible press: <kbd>Alt</kbd>+<kbd>0</kbd>
    
 <br/><a name="section1.5"/>
 
@@ -190,12 +187,13 @@ You can see a full example of **CMakeLists.txt** inside the files of this reposi
    
 ## 1.8 Opening QtCreator with ubuntu terminal
 If you have opened an *ubuntu terminal*, runned the `qtcreator &` command and received the message `qtcreator: command not found` you have to follow the next steps to get it working:
-   1. run the command: `gedit ~/.bashrc`
+   1. run the command: `gedit ~/.bash_aliases`
    2. Add the line below and do not forget to change `<qt folder>` to the Qt folder's path:
    ```bash
    alias qtcreator='<qt folder>/Tools/QtCreator/bin/qtcreator'
    ```
-   3. Everything is ready to use the `qtcreator &` command.
+   3. run `source ~/.bashrc` in the terminal
+   4. Everything is ready to use the `qtcreator &` command.
 <a name="section1.8.1"/>
 
 ### 1.8.1 Going crazy with shortcuts
