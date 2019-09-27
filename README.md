@@ -1,6 +1,6 @@
 
 # Setup of Qt Creator for ROS
-There is already an existing guide to make **Qt** and **ROS** work together but, using the **"Import Existing Project"** tool of QtCreator **may not include** all your project's libraries and the **advanced editing capabilities** of **Qt** will not be available if these files are not properly linked.
+There is already an existing guide to make **Qt** and **ROS** work together but, using the **"Import Existing Project"** tool of QtCreator **may not include** all your project's libraries, and therefore the **advanced editing capabilities** of **Qt** will not be available if these files are not properly linked.
 
 This guide will fix those problems by directly using **CMakeLists.txt**, this also has other advantage; you could use your project like a normal Qt project (no ROS).
 ___
@@ -79,8 +79,8 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
 
   ## Generate messages in the 'msg' folder
   add_message_files(FILES
-     carmaker_ego.msg
-     carmaker_act.msg
+     some_message.msg
+     other_message.msg
   )
 
   ## Generate added messages and services with any dependencies listed here
@@ -96,7 +96,7 @@ if(DEFINED CATKIN_DEVEL_PREFIX)
   ## CATKIN_DEPENDS: catkin_packages dependent projects also need
   ## DEPENDS: system dependencies of this project that dependent projects also need
   catkin_package(
-  #  INCLUDE_DIRS carmaker_ros_example/include
+  #  INCLUDE_DIRS your_project/include
   #  LIBRARIES state_machine
      CATKIN_DEPENDS message_runtime
   #  DEPENDS system_lib
@@ -190,12 +190,13 @@ You can see a full example of **CMakeLists.txt** inside the files of this reposi
    
 ## 1.8 Opening QtCreator with ubuntu terminal
 If you have opened an *ubuntu terminal*, runned the `qtcreator &` command and received the message `qtcreator: command not found` you have to follow the next steps to get it working:
-   1. run the command: `gedit ~/.bashrc`
+   1. run the command: `gedit ~/.bash_aliases`
    2. Add the line below and do not forget to change `<qt folder>` to the Qt folder's path:
    ```bash
    alias qtcreator='<qt folder>/Tools/QtCreator/bin/qtcreator'
    ```
-   3. Everything is ready to use the `qtcreator &` command.
+   3. run `source ~/.bashrc` in the terminal
+   4. Everything is ready to use the `qtcreator &` command.
 <a name="section1.8.1"/>
 
 ### 1.8.1 Going crazy with shortcuts
